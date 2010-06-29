@@ -1,0 +1,8 @@
+Brightness Android app widget
+
+A very simple app widget for the Android home screen. Clicking the widget toggles between automatic and miminum brightness settings.
+
+TODO
+ - Figuring out how to update the widget view when toggled.
+ - Adding beautiful coder art.
+
