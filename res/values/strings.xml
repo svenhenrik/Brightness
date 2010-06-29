@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="turning_off_auto">Brightness set to minimum</string>
+    <string name="app_name">Brightness</string>
+	<string name="turning_on_auto">Automatic brightness</string>
+<string name="auto_on">Auto</string>
+<string name="auto_off">Off</string>
+</resources>
