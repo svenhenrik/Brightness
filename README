@@ -4,6 +4,9 @@ A very simple app widget for the Android home screen. Clicking
 the widget toggles between automatic and miminum brightness settings.
 
 Known issues:
+ #2 : Only the icon is clickable, touching widget area should be enough
+ 
+Fixed:
  #1 : Sometimes, when unlocking the screen, the widget shows "Auto" 
       but clicking the widget will switch to "Auto" as if it was 
       off.

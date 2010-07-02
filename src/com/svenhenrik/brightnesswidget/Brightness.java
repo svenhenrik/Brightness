@@ -17,7 +17,7 @@ public class Brightness extends AppWidgetProvider {
 
 	public static String ACTION_WIDGET_RECEIVER = "com.svenhenrik.brightnesswidget.ActionReceiverWidget";
 	public static String ACTION_WIDGET_SETBRIGHTNESS = "com.svenhenrik.brightnesswidget.ActionSetBrightness";
-	public static boolean auto_brightness; 
+	public static boolean auto_brightness = true; 
 	
     private static final String SCREEN_BRIGHTNESS_MODE = "screen_brightness_mode";
     private static final int SCREEN_BRIGHTNESS_MODE_MANUAL = 0;
@@ -29,7 +29,7 @@ public class Brightness extends AppWidgetProvider {
     	try {
     		brightness_mode = Settings.System.getInt(context.getContentResolver(), SCREEN_BRIGHTNESS_MODE);
     	} catch (SettingNotFoundException e) {
-    		auto_brightness = false;
+    		auto_brightness = true;
     	}
     	auto_brightness = (brightness_mode == SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
     	
@@ -47,6 +47,7 @@ public class Brightness extends AppWidgetProvider {
             // Get the layout for the App Widget and attach an on-click listener to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.main);
             views.setOnClickPendingIntent(R.id.ImageView01, actionPendingIntent);
+            views.setOnClickPendingIntent(R.id.TextView01, actionPendingIntent);
             if (auto_brightness) {
             	views.setTextViewText(R.id.TextView01, context.getText(R.string.auto_on));
             	views.setImageViewResource(R.id.ImageView01, R.drawable.light_on);
@@ -54,7 +55,8 @@ public class Brightness extends AppWidgetProvider {
             }
             else { 
             	views.setTextViewText(R.id.TextView01, context.getText(R.string.auto_off));
-            	views.setImageViewResource(R.id.ImageView01, R.drawable.light_off);            }
+            	views.setImageViewResource(R.id.ImageView01, R.drawable.light_off);            
+            }
 
             // Tell the AppWidgetManager to perform an update on the current App Widget
             appWidgetManager.updateAppWidget(m_appWidgetId, views);
@@ -66,6 +68,14 @@ public class Brightness extends AppWidgetProvider {
     	ContentResolver resolver = context.getContentResolver();
     	// check, if our Action was called
     	if (intent.getAction().equals(ACTION_WIDGET_RECEIVER)) {
+        	int brightness_mode = SCREEN_BRIGHTNESS_MODE_MANUAL;
+        	try {
+        		brightness_mode = Settings.System.getInt(context.getContentResolver(), SCREEN_BRIGHTNESS_MODE);
+        	} catch (SettingNotFoundException e) {
+        		auto_brightness = true;
+        	}
+        	auto_brightness = (brightness_mode == SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+    		
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.main);
     		if (auto_brightness) {
                 views.setTextViewText(R.id.TextView01, context.getText(R.string.auto_off));
